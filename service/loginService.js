@@ -1,5 +1,7 @@
 const loginDao = require("../dao/loginDao")
 const timeUtil = require("../util/timeUtil")
+const serial = require('../util/serial')
+
 function checkLogin(request, response) {
     let  params = url.parse(request.url, true).query;
     loginDao.queryUserInfoByUserId(params.userName, function (result) {
@@ -27,9 +29,8 @@ async function register(params, success, fail) {
     if (result && result.length > 0) {
         fail('用户已存在！！！')
     } else {
-        let paramsArr = [params.userName, params.password, params.email, timeUtil.getNow()];
+        let paramsArr = [params.userName, params.password, params.email, timeUtil.getNow(), serial.getRandomCode(32)];
        let result = await loginDao.inserUserInfo(paramsArr);
-       console.log(' loginSer---------',result)
        if (result) {
            success(result)
        } else {

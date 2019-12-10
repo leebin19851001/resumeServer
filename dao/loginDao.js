@@ -10,7 +10,7 @@ async function queryUserInfoByUserId(userName) {
 }
 
 async function inserUserInfo(userInfo) {
-    let insertSql = "insert into user_info(`user_name`, `password`, `email`, `ctime`) values(?, ?, ?, ?);"
+    let insertSql = "insert into user_info(`user_name`, `password`, `email`, `ctime`, `app_key`) values(?, ?, ?, ?, ?);"
     let connection = dbutil.createConnetion();
     return await asyncFunc.query(insertSql, userInfo, connection);
 }
