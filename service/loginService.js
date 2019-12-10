@@ -1,9 +1,8 @@
 const loginDao = require("../dao/loginDao")
 const timeUtil = require("../util/timeUtil")
-const url = require("url");
 function checkLogin(request, response) {
     let  params = url.parse(request.url, true).query;
-    loginDao.queryUserInfoByUserId(params.userId, function (result) {
+    loginDao.queryUserInfoByUserId(params.userName, function (result) {
         console.log(result)
     }, function () {
         return {
@@ -21,10 +20,22 @@ function checkLogin(request, response) {
  * @param response
  * @returns {number}
  */
-function register(request, response, success, fail) {
-    let params = url.parse(request.url, true).query;
-    let paramsArr = [params.userId, params.password, params.email, timeUtil.getNow()];
-    loginDao.inserUserInfo(paramsArr, success, fail)
+async function register(params, success, fail) {
+    //判断传入的用户名是否存在，存在返回false 不可创建，不存在 创建用户
+    let userName = params.userName;
+    let result = await loginDao.queryUserInfoByUserId(userName);
+    if (result && result.length > 0) {
+        fail('用户已存在！！！')
+    } else {
+        let paramsArr = [params.userName, params.password, params.email, timeUtil.getNow()];
+       let result = await loginDao.inserUserInfo(paramsArr);
+       console.log(' loginSer---------',result)
+       if (result) {
+           success(result)
+       } else {
+           fail('插入失败')
+       }
+    }
 }
 
 function queryUserInfoByUserId(request, response, success, fail) {

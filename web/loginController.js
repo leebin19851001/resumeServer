@@ -5,7 +5,8 @@ const url = require("url");
 let path = new Map();
 
 function checkLogin(request, response) {
-    const result = loginService.checkLogin(request, response);
+    let  params = url.parse(request.url, true).query;
+    const result = loginService.checkLogin(params);
     response.writeHead(200);
     response.write(respUtil.writeResult('success', '获取成功', result));
     response.end();
@@ -13,28 +14,30 @@ function checkLogin(request, response) {
 path.set('/checkLogin', checkLogin);
 
 function register(request, response) {
-    loginService.register(request, response, function(result) {
+    let  params = url.parse(request.url, true).query;
+    loginService.register(params, function(result) {
         console.log(result)
         response.writeHead(200);
         response.write(respUtil.writeResult('success', '插入成功', result));
         response.end();
-    }, function (error) {
+    }, function (msg) {
         response.writeHead(200);
-        response.write(respUtil.writeResult('fail', '插入失败', error));
+        response.write(respUtil.writeResult('fail', msg, null));
         response.end();
     });
 }
 path.set('/register', register);
 
 function queryUserInfoByUserId(request, response) {
-    loginService.queryUserInfoByUserId(request, response, function(result) {
+    let  params = url.parse(request.url, true).query;
+    loginService.queryUserInfoByUserId(params, function(result) {
         console.log('成功',result)
         response.writeHead(200);
-        response.write(respUtil.writeResult('success', '插入成功', result));
+        response.write(respUtil.writeResult('success', '获取成功', result));
         response.end();
     }, function (error) {
         response.writeHead(200);
-        response.write(respUtil.writeResult('fail', '插入失败', error));
+        response.write(respUtil.writeResult('fail', '获取失败', error));
         response.end();
     });
 }

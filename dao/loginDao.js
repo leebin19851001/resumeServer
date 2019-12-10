@@ -1,31 +1,18 @@
 const dbutil = require('./dbutil')
-function queryUserInfoByUserId(userId, success, fail) {
+const asyncFunc = require('./async')
+
+async function queryUserInfoByUserId(userName) {
+    let res = '';
     let querySql = "select * from user_info where user_name = ?;";
-    let params = [userId];
+    let params = [userName];
     let connection = dbutil.createConnetion();
-    connection.connect();
-    connection.query(querySql, params, function (error, result) {
-        if(error == null) {
-            success(result)
-        } else {
-            fail(error);
-        }
-    });
-    connection.end();
+    return await  asyncFunc.query(querySql, params, connection);
 }
 
-function inserUserInfo(userInfo, success, fail) {
+async function inserUserInfo(userInfo) {
     let insertSql = "insert into user_info(`user_name`, `password`, `email`, `ctime`) values(?, ?, ?, ?);"
-    var connection = dbutil.createConnetion();
-    connection.connect();
-    connection.query(insertSql, userInfo, function (error, result) {
-        if(error == null) {
-            success(result)
-        } else {
-            fail(error)
-        }
-    });
-    connection.end();
+    let connection = dbutil.createConnetion();
+    return await asyncFunc.query(insertSql, userInfo, connection);
 }
 
 module.exports = {
