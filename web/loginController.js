@@ -13,8 +13,8 @@ function checkLogin(request, response) {
 path.set('/checkLogin', checkLogin);
 
 function register(request, response) {
-    console.log("一个请求过来里");
     loginService.register(request, response, function(result) {
+        console.log(result)
         response.writeHead(200);
         response.write(respUtil.writeResult('success', '插入成功', result));
         response.end();
@@ -25,5 +25,19 @@ function register(request, response) {
     });
 }
 path.set('/register', register);
+
+function queryUserInfoByUserId(request, response) {
+    loginService.queryUserInfoByUserId(request, response, function(result) {
+        console.log('成功',result)
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '插入成功', result));
+        response.end();
+    }, function (error) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult('fail', '插入失败', error));
+        response.end();
+    });
+}
+path.set('/queryUserInfoByUserId', queryUserInfoByUserId);
 
 module.exports.path = path;

@@ -9,5 +9,6 @@ app.listen(globalConfig['port'], function () {
     console.log("服务器已经启动");
 });
 
-app.get('/checkLogin', loader.get('/checkLogin'));
-app.get('/register', loader.get('/register'));
+app.get('/api/checkLogin', loader.get('/checkLogin'));
+app.get('/api/register', loader.get('/register'));
+app.get('/queryUserInfoByUserId', loader.get('/queryUserInfoByUserId'));

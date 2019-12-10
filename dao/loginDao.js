@@ -1,6 +1,6 @@
 const dbutil = require('./dbutil')
 function queryUserInfoByUserId(userId, success, fail) {
-    let querySql = "select * from user_info where id = ?;";
+    let querySql = "select * from user_info where user_name = ?;";
     let params = [userId];
     let connection = dbutil.createConnetion();
     connection.connect();
@@ -15,7 +15,7 @@ function queryUserInfoByUserId(userId, success, fail) {
 }
 
 function inserUserInfo(userInfo, success, fail) {
-    let insertSql = "insert into user_info(`user_name`, `password`, `ctime`) values(?, ?, ?);"
+    let insertSql = "insert into user_info(`user_name`, `password`, `email`, `ctime`) values(?, ?, ?, ?);"
     var connection = dbutil.createConnetion();
     connection.connect();
     connection.query(insertSql, userInfo, function (error, result) {

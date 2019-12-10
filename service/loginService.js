@@ -23,11 +23,17 @@ function checkLogin(request, response) {
  */
 function register(request, response, success, fail) {
     let params = url.parse(request.url, true).query;
-    let paramsArr = [params.userId, params.password, timeUtil.getNow()];
+    let paramsArr = [params.userId, params.password, params.email, timeUtil.getNow()];
     loginDao.inserUserInfo(paramsArr, success, fail)
+}
+
+function queryUserInfoByUserId(request, response, success, fail) {
+    let params = url.parse(request.url, true).query;
+    loginDao.queryUserInfoByUserId(params.userId, success, fail)
 }
 
 module.exports = {
     "checkLogin": checkLogin,
-    "register": register
+    "register": register,
+    "queryUserInfoByUserId": queryUserInfoByUserId
 }
