@@ -44,8 +44,25 @@ function queryUserInfoByUserId(request, response, success, fail) {
     loginDao.queryUserInfoByUserId(params.userId, success, fail)
 }
 
+async function login(params, success, fail) {
+    let userName = params.userName;
+    let password = params.password;
+    let result = await loginDao.queryUserInfoByUserId(userName);
+    if (result.length == 0) {
+        console.log('用户不存在')
+        fail('用户不存在')
+    } else {
+        if (result[0].password !== password) {
+            fail('密码错误')
+        } else {
+            success(result);
+        }
+    }
+}
+
 module.exports = {
     "checkLogin": checkLogin,
     "register": register,
-    "queryUserInfoByUserId": queryUserInfoByUserId
+    "queryUserInfoByUserId": queryUserInfoByUserId,
+    "login": login
 }

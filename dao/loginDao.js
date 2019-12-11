@@ -15,6 +15,7 @@ async function inserUserInfo(userInfo) {
     return await asyncFunc.query(insertSql, userInfo, connection);
 }
 
+
 module.exports = {
     "queryUserInfoByUserId": queryUserInfoByUserId,
     "inserUserInfo": inserUserInfo

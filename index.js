@@ -12,3 +12,4 @@ app.listen(globalConfig['port'], function () {
 app.get('/checkLogin', loader.get('/checkLogin'));
 app.get('/register', loader.get('/register'));
 app.get('/queryUserInfoByUserId', loader.get('/queryUserInfoByUserId'));
+app.get('/login', loader.get('/login'));

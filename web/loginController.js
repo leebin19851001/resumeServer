@@ -18,7 +18,7 @@ function register(request, response) {
     loginService.register(params, function(result) {
         console.log(result)
         response.writeHead(200);
-        response.write(respUtil.writeResult('success', '插入成功', result));
+        response.write(respUtil.writeResult('success', '注册成功', result));
         response.end();
     }, function (msg) {
         response.writeHead(200);
@@ -42,5 +42,20 @@ function queryUserInfoByUserId(request, response) {
     });
 }
 path.set('/queryUserInfoByUserId', queryUserInfoByUserId);
+
+function login(request, response) {
+    let  params = url.parse(request.url, true).query;
+    loginService.login(params, function(result) {
+        console.log('成功',result)
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '登录成功', result));
+        response.end();
+    }, function (error) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult('fail', error, null));
+        response.end();
+    });
+}
+path.set('/login', login);
 
 module.exports.path = path;
