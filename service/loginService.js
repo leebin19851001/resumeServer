@@ -30,7 +30,7 @@ async function register(params, success, fail) {
         fail('用户已存在！！！')
     } else {
         let paramsArr = [params.userName, params.password, params.email, timeUtil.getNow(), serial.getRandomCode(32)];
-       let result = await loginDao.inserUserInfo(paramsArr);
+       let result = await loginDao.insertUserInfo(paramsArr);
        if (result) {
            success(result)
        } else {

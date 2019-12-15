@@ -13,3 +13,7 @@ app.get('/checkLogin', loader.get('/checkLogin'));
 app.get('/register', loader.get('/register'));
 app.get('/queryUserInfoByUserId', loader.get('/queryUserInfoByUserId'));
 app.get('/login', loader.get('/login'));
+
+app.get('/addSlogan', loader.get('/addSlogan'));
+app.get('/getSloganAll', loader.get('/getSloganAll'));
+app.get('/getSloganByLimit', loader.get('/getSloganByLimit'));
