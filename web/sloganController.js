@@ -52,5 +52,37 @@ function getSloganByLimit(request, response) {
 }
 path.set('/getSloganByLimit', getSloganByLimit)
 
+function deleteSloganById(request, response) {
+    const params = url.parse(request.url, true).query
+    sloganService.deleteSloganById(params, function (result) {
+        console.log(result);
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '获取成功', result));
+        response.end();
+    }, function (err) {
+        console.log(err)
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', err, null));
+        response.end();
+    })
+}
+path.set('/deleteSloganById', deleteSloganById)
+
+function updateSlogan(request, response) {
+    const params = url.parse(request.url, true).query
+    sloganService.updateSlogan(params, function (result) {
+        console.log(result);
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '获取成功', result));
+        response.end();
+    }, function (err) {
+        console.log(err)
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', err, null));
+        response.end();
+    })
+}
+path.set('/updateSlogan', updateSlogan)
+
 module.exports.path = path;
 

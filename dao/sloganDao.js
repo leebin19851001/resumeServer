@@ -19,8 +19,22 @@ async function getSloganByLimit(params) {
     return await asyncFunc.query(querySql, params, connection);
 }
 
+async function deleteSloganById(params) {
+    let querySql = "delete from slogan where id = ?;"
+    let connection = dbutil.createConnetion();
+    return await asyncFunc.query(querySql, params, connection);
+}
+
+async function updateSlogan(params) {
+    let querySql = "update slogan set title = ?, content = ?, ctime = ? where id = ?;"
+    let connection = dbutil.createConnetion();
+    return await asyncFunc.query(querySql, params, connection);
+}
+
 module.exports = {
     "insertSlogan": insertSlogan,
     "getSloganAll": getSloganAll,
-    "getSloganByLimit": getSloganByLimit
+    "getSloganByLimit": getSloganByLimit,
+    "deleteSloganById": deleteSloganById,
+    "updateSlogan": updateSlogan
 }

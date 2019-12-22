@@ -1,4 +1,3 @@
-const url = require("url")
 const sloganDao = require('../dao/sloganDao')
 const timeUtil = require('../util/timeUtil')
 async function addSlogan(params, success, fail) {
@@ -30,8 +29,31 @@ async function getSloganByLimit(params, success, fail) {
     }
 }
 
+async function deleteSloganById(params, success, fail) {
+    console.log(params)
+    const paramsArr = [parseInt(params.id)]
+    let result = await sloganDao.deleteSloganById(paramsArr)
+    if (result) {
+        success(result)
+    }else {
+        fail(result)
+    }
+}
+
+async function updateSlogan(params, success, fail) {
+    const paramsArr = [params.title, params.content, timeUtil.getNow(), parseInt(params.id)]
+    let result = await sloganDao.updateSlogan(paramsArr)
+    if (result) {
+        success(result)
+    }else {
+        fail(result)
+    }
+}
+
 module.exports = {
     "addSlogan": addSlogan,
     "getSloganAll": getSloganAll,
-    "getSloganByLimit": getSloganByLimit
+    "getSloganByLimit": getSloganByLimit,
+    "deleteSloganById": deleteSloganById,
+    "updateSlogan": updateSlogan
 }

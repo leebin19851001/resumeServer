@@ -17,3 +17,6 @@ app.get('/login', loader.get('/login'));
 app.get('/addSlogan', loader.get('/addSlogan'));
 app.get('/getSloganAll', loader.get('/getSloganAll'));
 app.get('/getSloganByLimit', loader.get('/getSloganByLimit'));
+
+app.get('/deleteSloganById', loader.get('/deleteSloganById'));
+app.get('/updateSlogan', loader.get('/updateSlogan'));
